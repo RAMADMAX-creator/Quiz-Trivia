@@ -1,0 +1,6 @@
+{
+  "name": "Quiz Master",
+  "description": "Gamified quiz app with levels, XP progression, daily and weekly streaks, category quizzes, timed challenges, achievements, leaderboards, daily challenges, offline practice, cosmetics and homeschool synergy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
