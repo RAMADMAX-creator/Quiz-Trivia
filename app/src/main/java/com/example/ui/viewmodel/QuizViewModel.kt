@@ -63,7 +63,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
-            _leaderboardDivision.collect { division ->
+            _leaderboardDivision.collectLatest { division ->
                 repository.getLeaderboard(division).collect { list ->
                     _leaderboard.value = list
                 }
@@ -284,7 +284,8 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     fun startQuiz(
         category: String,
         ageDivision: String,
-        gameMode: GameMode = GameMode.CLASSIC
+        gameMode: GameMode = GameMode.CLASSIC,
+        questionDivision: String = ageDivision
     ) {
         val currentTimer = when (gameMode) {
             GameMode.SAT_PREP -> TimerMode.SAT
@@ -303,7 +304,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         )
 
         viewModelScope.launch {
-            val questions = repository.getQuestionsForQuiz(category, ageDivision)
+            val questions = repository.getQuestionsForQuiz(category, questionDivision)
             _activeQuiz.value = ActiveQuizState(
                 category = category,
                 ageDivision = ageDivision,
@@ -383,4 +384,3 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 }
-
